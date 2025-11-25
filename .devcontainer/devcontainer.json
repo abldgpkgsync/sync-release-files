@@ -3,20 +3,16 @@
   "name": "UBUNTU24.04",
   "image": "docker.io/ubuntu:24.04",
   "postCreateCommand": "bash -x .dev*/init_devct.sh",
-  // 4. 目录挂载：本地工作目录 → 容器内 /root/mywksp
   "workspaceMount": "source=${localWorkspaceFolder},target=/root/mywksp,type=bind",
-  // 5. 容器内工作目录（必须与 workspaceMount 的 target 一致）
   "workspaceFolder": "/root/mywksp",
-  // 8. 容器内默认用户（解决目录挂载权限问题，开发环境推荐 root）
   "remoteUser": "root",
-  // 9. 可选：自定义容器启动参数（如添加特权、端口映射等，host 模式下端口映射无效）
   "runArgs": [
     // only-for-nivida-container-runtime
     // "--gpus=all",
     // "--shm-size=16g",
-    "--privileged", // 临时提升权限（解决挂载/设备访问问题，可选）
-    "--name=${DEV_CTNAME:-ldgdevct}",
-    "--hostname=${DEV_CTNAME:-ldgdevct}",
+    "--privileged",
+    "--name=ldgdevct",
+    "--hostname=ldgdevct",
     "--network=host",
     "--dns=114.114.114.114"
   ],
@@ -24,10 +20,9 @@
   "customizations": {
     "vscode": {
       "settings": {
-        "terminal.integrated.shell.linux": "/bin/bash" // 容器内终端默认 shell
+        "terminal.integrated.shell.linux": "/bin/bash"
       },
       "extensions": [
-        // 示例插件，可替换为你的需求
         // "dbaeumer.vscode-eslint",
         // "ms-python.python",
         // "ms-vscode.cpptools",
