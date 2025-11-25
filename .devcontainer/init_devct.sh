@@ -34,7 +34,7 @@ _priv::doinit() {
 
   local pkgs=(
     bash-completion curl git jq make tar gpg sudo gzip
-    bzip2 gawk iputils-ping iproute2 net-tools fping
+    bzip2 gawk iputils-ping iproute2 net-tools fping bsdextrautils
   )
   if [ X1 = X${WITH_PYTHON:-0} ]; then
     pkgs+=(python3)
@@ -44,7 +44,7 @@ _priv::doinit() {
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   set -- ${HOME:-/root}/.osci https://gitee.com/abldg/osci
   [ -d $1 ] || git clone $2 $1
-  [ -d $1 ] && (cd $1 && make)
+  [ -d $1 ] && (cd $1 && make Q=)
 }
 
 _priv::doinit $@
